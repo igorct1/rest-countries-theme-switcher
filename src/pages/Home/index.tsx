@@ -1,5 +1,12 @@
-import { HomeContainer } from "./styles";
+import { Input } from "./Input";
+import { HomeContainer, SearchContainer } from "./styles";
 
 export function Home() {
-  return <HomeContainer></HomeContainer>;
+  return (
+    <HomeContainer>
+      <SearchContainer>
+        <Input />
+      </SearchContainer>
+    </HomeContainer>
+  );
 }

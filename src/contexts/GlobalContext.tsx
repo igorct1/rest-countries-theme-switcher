@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode } from "react";
 
 export const GlobalContext = createContext({} as GlobalContextProviderProps);
 
