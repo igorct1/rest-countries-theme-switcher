@@ -1,4 +1,12 @@
 import styled from "styled-components";
+
+export const SearchContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+`;
+
 export const InputContainer = styled.div`
   background: ${(props) => props.theme["elements"]};
 
@@ -31,3 +39,5 @@ export const InputContainer = styled.div`
     color: ${(props) => props.theme["text"]};
   }
 `;
+
+export const FilterContainer = styled.div``;
