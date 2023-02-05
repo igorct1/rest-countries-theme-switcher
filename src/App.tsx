@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStorage } from "./contexts/GlobalContext";
@@ -10,8 +10,15 @@ export const App = () => {
   const [theme, setTheme] = useState(true);
 
   function toggleTheme() {
-    setTheme((state) => !state);
+    const storedTheme = !theme;
+    setTheme(storedTheme);
+    localStorage.setItem("theme", JSON.stringify(storedTheme));
   }
+
+  useEffect(() => {
+    const localTheme = localStorage.getItem("theme");
+    setTheme(JSON.parse(localTheme));
+  }, []);
 
   return (
     <ThemeProvider theme={theme ? defaultTheme : lightTheme}>

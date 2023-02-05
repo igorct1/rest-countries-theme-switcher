@@ -1,8 +1,25 @@
 import { FilterContainer, SearchContainer } from "./styles";
-import { MagnifyingGlass } from "phosphor-react";
+import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import { InputContainer } from "./styles";
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../../../contexts/GlobalContext";
 
 export function Search() {
+  const [regionActive, setRegionActive] = useState(false);
+
+  const { changeRegion, searchCountry, search } = useContext(GlobalContext);
+  function handleRegion(event: React.MouseEvent<HTMLLIElement>) {
+    const value = event.currentTarget.getAttribute("value");
+    if (value) {
+      changeRegion(value);
+    }
+  }
+
+  function handleNewSearch(event: React.FormEvent<HTMLInputElement>) {
+    const value = event.currentTarget.value;
+    searchCountry(value);
+  }
+
   return (
     <SearchContainer>
       <InputContainer>
@@ -12,11 +29,38 @@ export function Search() {
             type="text"
             placeholder="Search for a country..."
             id="search"
+            onChange={handleNewSearch}
+            value={search}
           />
         </label>
       </InputContainer>
-      <FilterContainer>
-        <h1>Filter</h1>
+      <FilterContainer onClick={() => setRegionActive((state) => !state)}>
+        <div>
+          <strong>Filter by Region</strong>
+          <CaretDown size={20} />
+        </div>
+        {regionActive && (
+          <ul>
+            <li onClick={handleRegion} value="all">
+              All
+            </li>
+            <li onClick={handleRegion} value="africa">
+              Africa
+            </li>
+            <li onClick={handleRegion} value="americas">
+              Americas
+            </li>
+            <li onClick={handleRegion} value="asia">
+              Asia
+            </li>
+            <li onClick={handleRegion} value="europe">
+              Europe
+            </li>
+            <li onClick={handleRegion} value="oceania">
+              Oceania
+            </li>
+          </ul>
+        )}
       </FilterContainer>
     </SearchContainer>
   );

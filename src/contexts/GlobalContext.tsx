@@ -10,9 +10,13 @@ import { api } from "../libs/axios";
 export const GlobalContext = createContext({} as GlobalContextProviderProps);
 
 interface GlobalContextProviderProps {
-  toggleTheme: () => void;
-  theme: boolean;
   data: Country[];
+  loading: boolean;
+  theme: boolean;
+  search: string;
+  toggleTheme: () => void;
+  changeRegion: (region: string) => void;
+  searchCountry: (query: string) => void;
 }
 
 interface GlobalContextProps {
@@ -40,7 +44,8 @@ export function GlobalStorage({
 }: GlobalContextProps) {
   const [data, setData] = useState<Country[]>([]);
   const [loading, setLoading] = useState(false);
-
+  const [region, setRegion] = useState("all");
+  const [search, setSearch] = useState("");
   const fetchInitialData = useCallback(async () => {
     try {
       setLoading(true);
@@ -53,12 +58,73 @@ export function GlobalStorage({
     }
   }, []);
 
+  // initial data
   useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
     fetchInitialData();
   }, []);
 
+  function changeRegion(region: string) {
+    setRegion(region);
+  }
+
+  function searchCountry(query: string) {
+    setSearch(query);
+  }
+
+  // filter by search
+  useEffect(() => {
+    async function fetchDataBySearch() {
+      if (search !== "") {
+        try {
+          setLoading(true);
+          const response = await api.get(`name/${search}`);
+          if (response.status) {
+            setData(response.data);
+          }
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        fetchInitialData();
+      }
+    }
+    fetchDataBySearch();
+  }, [search]);
+
+  // filter by region
+  useEffect(() => {
+    async function fetchDataByRegion() {
+      if (region !== "all") {
+        try {
+          setLoading(true);
+          const response = await api.get(`region/${region}`);
+          if (response.status) {
+            setData(response.data);
+          }
+          console.log(region);
+        } finally {
+          setLoading(false);
+        }
+      } else {
+        fetchInitialData();
+      }
+    }
+    fetchDataByRegion();
+  }, [region]);
+
   return (
-    <GlobalContext.Provider value={{ toggleTheme, theme, data }}>
+    <GlobalContext.Provider
+      value={{
+        toggleTheme,
+        theme,
+        data,
+        changeRegion,
+        loading,
+        search,
+        searchCountry,
+      }}
+    >
       {children}
     </GlobalContext.Provider>
   );

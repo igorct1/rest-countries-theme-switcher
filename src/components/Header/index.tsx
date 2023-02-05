@@ -15,6 +15,7 @@ export function Header() {
         <h1>Where in the World?</h1>
         <button onClick={onToggleTheme}>
           {theme ? <Sun size={18} /> : <Moon size={18} />}
+          {theme ? "Light" : "Dark"}
         </button>
       </div>
     </HeaderContainer>

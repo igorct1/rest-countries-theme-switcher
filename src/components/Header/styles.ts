@@ -4,8 +4,9 @@ export const HeaderContainer = styled.header`
   background: ${(props) => props.theme["elements"]};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+
   > div {
-    max-width: 144rem;
+    max-width: 140rem;
     margin: 0 auto;
     padding: 3rem 2rem;
     display: flex;
@@ -19,6 +20,7 @@ export const HeaderContainer = styled.header`
       font-weight: 800;
       color: ${(props) => props.theme["text"]};
     }
+
     button {
       display: flex;
       align-items: center;
