@@ -21,10 +21,18 @@ interface CountryDetails extends Country {
   languages: [];
 }
 
+interface Currencies {
+  code: string;
+}
+
+interface Languages {
+  name: string;
+}
+
 export function CountryDetail() {
   const { name } = useParams();
   const [country, setCountry] = useState<CountryDetails>({} as CountryDetails);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchDataByName() {
@@ -57,7 +65,7 @@ export function CountryDetail() {
           </button>
 
           <CountrySection>
-            <img src={country.flags.svg} alt="" />
+            <img src={country?.flags?.svg} alt="" />
             <CountryInfo>
               <h2>{country.name}</h2>
               <CountryInfoList>
@@ -68,7 +76,7 @@ export function CountryDetail() {
                   </span>
                   <span>
                     <strong>Population: </strong>
-                    {country.population.toLocaleString("pt-br")}
+                    {country.population?.toLocaleString("pt-br")}
                   </span>
                   <span>
                     <strong>Region: </strong>
@@ -91,15 +99,15 @@ export function CountryDetail() {
                   <span>
                     <strong>Currencies: </strong>
                     {country.currencies &&
-                      country.currencies.map((currency: any) => (
+                      country.currencies.map((currency: Currencies) => (
                         <p key={currency.code}>{currency.code}</p>
                       ))}
                   </span>
                   <span>
                     <strong>Languages: </strong>
                     {country.languages &&
-                      country.languages.map((language: any) => (
-                        <p key={language.iso639_1}>{language.iso639_1}</p>
+                      country.languages.map((language: Languages) => (
+                        <p key={language.name}>{language.name}</p>
                       ))}
                   </span>
                 </div>
@@ -108,13 +116,13 @@ export function CountryDetail() {
                 <h2>Border Countries: </h2>
                 <div>
                   {country.borders ? (
-                    country.borders.map((border: any) => (
+                    country.borders.map((border: string) => (
                       <Link key={border} to={`/${border}`}>
                         {border}
                       </Link>
                     ))
                   ) : (
-                    <p>No data found...</p>
+                    <p>No border found for this country.</p>
                   )}
                 </div>
               </BorderContainer>

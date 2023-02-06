@@ -1,4 +1,9 @@
-import { FilterContainer, SearchContainer } from "./styles";
+import {
+  FilterButton,
+  FilterContainer,
+  FilterList,
+  SearchContainer,
+} from "./styles";
 import { CaretDown, MagnifyingGlass } from "phosphor-react";
 import { InputContainer } from "./styles";
 import { useContext, useState } from "react";
@@ -6,8 +11,8 @@ import { GlobalContext } from "../../../../contexts/GlobalContext";
 
 export function Search() {
   const [regionActive, setRegionActive] = useState(false);
-
   const { changeRegion, searchCountry, search } = useContext(GlobalContext);
+
   function handleRegion(event: React.MouseEvent<HTMLLIElement>) {
     const value = event.currentTarget.getAttribute("value");
     if (value) {
@@ -35,12 +40,12 @@ export function Search() {
         </label>
       </InputContainer>
       <FilterContainer onClick={() => setRegionActive((state) => !state)}>
-        <div>
-          <strong>Filter by Region</strong>
+        <FilterButton>
+          Filter by Region
           <CaretDown size={20} />
-        </div>
+        </FilterButton>
         {regionActive && (
-          <ul>
+          <FilterList>
             <li onClick={handleRegion} value="all">
               All
             </li>
@@ -59,7 +64,7 @@ export function Search() {
             <li onClick={handleRegion} value="oceania">
               Oceania
             </li>
-          </ul>
+          </FilterList>
         )}
       </FilterContainer>
     </SearchContainer>

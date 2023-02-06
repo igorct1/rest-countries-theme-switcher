@@ -103,4 +103,8 @@ export const BorderContainer = styled.div`
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
   }
+
+  p {
+    color: ${(props) => props.theme["text"]};
+  }
 `;

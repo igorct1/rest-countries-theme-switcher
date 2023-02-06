@@ -12,6 +12,7 @@ export const GlobalContext = createContext({} as GlobalContextProviderProps);
 interface GlobalContextProviderProps {
   data: Country[];
   loading: boolean;
+  region: string;
   theme: boolean;
   search: string;
   toggleTheme: () => void;
@@ -60,7 +61,6 @@ export function GlobalStorage({
 
   // initial data
   useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
     fetchInitialData();
   }, []);
 
@@ -123,6 +123,7 @@ export function GlobalStorage({
         loading,
         search,
         searchCountry,
+        region,
       }}
     >
       {children}

@@ -17,7 +17,9 @@ export const App = () => {
 
   useEffect(() => {
     const localTheme = localStorage.getItem("theme");
-    setTheme(JSON.parse(localTheme));
+    if (localTheme) {
+      setTheme(JSON.parse(localTheme));
+    }
   }, []);
 
   return (
