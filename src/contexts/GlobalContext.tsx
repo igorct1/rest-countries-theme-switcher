@@ -12,7 +12,6 @@ export const GlobalContext = createContext({} as GlobalContextProviderProps);
 interface GlobalContextProviderProps {
   data: Country[];
   loading: boolean;
-  region: string;
   theme: boolean;
   search: string;
   toggleTheme: () => void;
@@ -47,6 +46,7 @@ export function GlobalStorage({
   const [loading, setLoading] = useState(false);
   const [region, setRegion] = useState("all");
   const [search, setSearch] = useState("");
+
   const fetchInitialData = useCallback(async () => {
     try {
       setLoading(true);
@@ -59,11 +59,6 @@ export function GlobalStorage({
     }
   }, []);
 
-  // initial data
-  useEffect(() => {
-    fetchInitialData();
-  }, []);
-
   function changeRegion(region: string) {
     setRegion(region);
   }
@@ -71,6 +66,11 @@ export function GlobalStorage({
   function searchCountry(query: string) {
     setSearch(query);
   }
+
+  // initial data
+  useEffect(() => {
+    fetchInitialData();
+  }, []);
 
   // filter by search
   useEffect(() => {
@@ -102,7 +102,6 @@ export function GlobalStorage({
           if (response.status) {
             setData(response.data);
           }
-          console.log(region);
         } finally {
           setLoading(false);
         }
@@ -123,7 +122,6 @@ export function GlobalStorage({
         loading,
         search,
         searchCountry,
-        region,
       }}
     >
       {children}

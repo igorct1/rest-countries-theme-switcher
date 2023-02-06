@@ -27,8 +27,12 @@ export const CardInfo = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 2rem 4rem;
-
   color: ${(props) => props.theme["text"]};
+
+  h2 {
+    margin-bottom: 1rem;
+    font-weight: 800;
+  }
 `;
 
 export const CardList = styled.ul`
@@ -36,4 +40,8 @@ export const CardList = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+
+  strong {
+    font-weight: 600;
+  }
 `;

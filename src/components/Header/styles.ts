@@ -19,6 +19,9 @@ export const HeaderContainer = styled.header`
       color: white;
       font-weight: 800;
       color: ${(props) => props.theme["text"]};
+      @media (max-width: 420px) {
+        font-size: 2.2rem;
+      }
     }
 
     button {

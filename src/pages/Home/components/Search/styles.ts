@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 export const SearchContainer = styled.div`
   display: flex;
@@ -6,6 +6,11 @@ export const SearchContainer = styled.div`
   align-items: center;
   gap: 2rem;
   margin-top: 4rem;
+
+  @media (max-width: 740px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 `;
 
 export const InputContainer = styled.div`
@@ -15,6 +20,10 @@ export const InputContainer = styled.div`
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
   border-radius: 8px;
   width: 45rem;
+
+  @media (max-width: 740px) {
+    width: 100%;
+  }
 
   label {
     display: flex;
@@ -68,6 +77,17 @@ export const FilterButton = styled.button`
   cursor: pointer;
 `;
 
+const slideDown = keyframes`
+  from {
+    transform: translate3d(0, -30px, 0);
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
 export const FilterList = styled.ul`
   position: absolute;
   list-style: none;
@@ -75,7 +95,7 @@ export const FilterList = styled.ul`
   color: ${(props) => props.theme["text"]};
   padding: 1.6rem;
   border-radius: 8px;
-
+  animation: ${slideDown} 0.2s forwards;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -84,7 +104,6 @@ export const FilterList = styled.ul`
   top: 6rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
     rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
-
   li {
     cursor: pointer;
     font-size: 1.4rem;

@@ -36,6 +36,7 @@ export function Search() {
             id="search"
             onChange={handleNewSearch}
             value={search}
+            autoComplete="off"
           />
         </label>
       </InputContainer>
